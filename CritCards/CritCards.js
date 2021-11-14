@@ -43,7 +43,7 @@
 				"Surprise opening@@C@@You get one free attack against the target with a 1d4 penalty against your attack.",
 				"Lean into the blow@@D@@In the process you drop your weapon. (You may use a bonus action to pick it up.)",
 				"Concussion@@C@Your allies have advantage on attacks against this target until the end of your next turn.",
-				"Nighty Night.@@+@@ "],
+				"Cleave@@+@@The extra damage die is applied to another enemy that is within reach of you."],
 		range: ["In the knee@@C@@The targets speed is reduced by 5 ft until they take a short rest.",
 				"Resistance is futile@@C@@For 1d6 rounds: if the target is resistant to this damage type, it loses that resistance. If it is not resistant, it becomes vulnerable.",
 				"Now you see it...@@6@@The target must make a DC 16 Dex saving throw. On a failed save, the target loses and eye.",
