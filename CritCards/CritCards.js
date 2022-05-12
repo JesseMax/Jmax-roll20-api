@@ -1,5 +1,5 @@
 /* 
- * Version 0.1.3 Beta
+ * Version 0.2.01 Beta
  * Made By Jesse Smith
  * Discord: DMJesseMax #2197
  * Roll20: https://app.roll20.net/users/2001966/jessemax
@@ -17,6 +17,7 @@
  * Check attack type instead of defaulting to prevent an error
  * autoroll effect dice
  * /whisper help - need to figure out how to get player id/display name
+ * 
 */
 
  /* Globals
@@ -24,11 +25,18 @@
   *
  */
 
+ /*
+  * 0.1.4 Beta
+  *   Fixed typo in concussion fail that caused message not to load.
+  * 0.2.0 Beta
+  *   Added sanity check to make sure !CristCards is being called
+ */
+
  var CritCards = CritCards || (function() {
  	'use strict';
 
-	const version = '0.1.3 Beta';
-	const lastUpdate = new Date(2020, 4, 13);
+	const version = '0.2.01 Beta';
+	const lastUpdate = new Date(2021, 4, 27);
 
 	const checkInstall = function() {
 		log('-=> CritCards v'+version+' <=- ['+lastUpdate+']');
@@ -42,8 +50,8 @@
 				"Blow to the head@@C@@Your target cannot take reactions until the start of your next turn.",
 				"Surprise opening@@C@@You get one free attack against the target with a 1d4 penalty against your attack.",
 				"Lean into the blow@@D@@In the process you drop your weapon. (You may use a bonus action to pick it up.)",
-				"Concussion@@C@Your allies have advantage on attacks against this target until the end of your next turn.",
-				"Cleave@@+@@The extra damage die is applied to another enemy that is within reach of you."],
+				"Concussion@@C@@Your allies have advantage on attacks against this target until the end of your next turn."],
+//				"Nighty Night.@@+@@ "],
 		range: ["In the knee@@C@@The targets speed is reduced by 5 ft until they take a short rest.",
 				"Resistance is futile@@C@@For 1d6 rounds: if the target is resistant to this damage type, it loses that resistance. If it is not resistant, it becomes vulnerable.",
 				"Now you see it...@@6@@The target must make a DC 16 Dex saving throw. On a failed save, the target loses and eye.",
@@ -73,8 +81,8 @@
 				"Frighting recovery@@ @@If the target's next attack hits you, roll a DC 16 Wis save. On a failed save, you are frightened of them until the end of your next turn.",
 				"Dizzy & Fatigued@@ @@For the next 1d4 rounds, make a DC 12 Con saving throw at the start of your turn. On a failed save, you are blinded for that turn.",
 				"Cramp!@@ @@You take 1d4 penalty to your next attack roll.",
-				"Outmatched!@@ @@Your opponent uses your mistake against you. Take damage equal to your damage modifier for this weapon.",
-				"Off balance@@ @@All enemies that attack you before your next turn add 1d6 to their attack roll."],
+				"Off balance@@ @@All enemies that attack you before your next turn add 1d6 to their attack roll.",
+				"Just a bit outside@@ @@You swing true but at the last moment your target pivots causing you to swing past them, throwing you off balance. -2 to any DEX saves until the start of your next turn."],
 		range: ["Oops!@@ @@Reroll this attack against an ally within 10 ft. of the original target.",
 				"Wrist Strain@@ @@If this attach was made with a thrown weapon, take 1D6 damage.",
 				"Confusion@@ @@You don't add your proficiency bonus to your attacks for 1d4 rounds.",
@@ -82,9 +90,9 @@
 				"Twang!@@ @@Weapon Damage: If this attach was made with a bow or crossbow: roll a D10. On a 1-9 the weapons damage is reduced by 1d4 until repaired. On a 10, the string snaps rendering the weapon useless until it is repaired.",
 				"Dust in your eye@@ @@Deal 1/2 damage on your next two attacks.",
 				"Determined@@Y @@ou have advantage on your next attack against the target.",
-				"Mental Error@@ @@The stress of battle causes you to forget a critical step in using your weapon. Take damage equal to your damage modifier for this weapon.",
 				"Peek-a-boo@@ @@If you were hiding: your target sees you. Reroll your Stealth check with disadvantage.",
-				"Poor sport@@ @@Your target taunts you. Make a DC 12 Wis saving throw. On a failed save, you have disadvantage when attacking this target until you successfully hit them."],
+				"Poor sport@@ @@Your target taunts you. Make a DC 12 Wis saving throw. On a failed save, you have disadvantage when attacking this target until you successfully hit them.",
+				"Adjusting the Angle@@ @@Your aim is true but your target turns just in time. Your projectile glances off their shoulder causeing no damage."],
 		magic: ["Spaced....@@ @@Make a DC 16 Wisdom save against your spellcasting ability. On a failed save, you are unable to cast this spell again until you finish a long rest.",
 				"What the what?@@ @@A creature (CR 1/2 your level) chosen by the DM appears within 30 ft of you. It is hostile to everyone.",
 				"Power of Deduction@@ @@The target has advantage on saving throws against your spells for 1d4 rounds.",
@@ -203,6 +211,8 @@
 	    //End chat pick up
 
 		if (msg.type != 'api') return;
+		if (msg.content.indexOf("!CritCards") == -1) return;
+		//above line should check to see if api call is for CritCards
 
 		let args = msg.content.split(/\s+--/);
 			//sendChat('Check', 'args =' + args);
